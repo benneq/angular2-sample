@@ -2,9 +2,9 @@ import {Http} from 'angular2/http'
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx'
 
-export class CrudListService<T> {
+export abstract class CrudListService<T> {
     
-    constructor(protected http:Http, protected baseUrl:string) {
+    constructor(protected type, protected http:Http, protected baseUrl:string) {
         
     }
     
@@ -17,13 +17,15 @@ export class CrudListService<T> {
     get(id:string): Observable<T> {
         return this.http
             .get(this.baseUrl + "/" + id + ".json")
-            .map(res => res.json());
+            .map(res => res.json())
+            .map(val => this.fromJson(val));
     }
     
     getList(): Observable<T[]> {
         return this.http
             .get(this.baseUrl + ".json")
-            .map(res => res.json());
+            .map(res => res.json())
+            .map(val => this.listFromJson(val));
     }
     
     update(id:string, item:T): Observable<any> {
@@ -36,6 +38,18 @@ export class CrudListService<T> {
         return this.http
             .delete(this.baseUrl + "/" + id + ".json")
             .map(res => res);
+    }
+    
+    
+    
+    fromJson(obj:T): T {
+        this.type.fromJson(obj);
+        return obj;
+    }
+    
+    private listFromJson(obj:T[]): T[] {
+        obj.forEach(e => this.fromJson(e));
+        return obj;
     }
     
 }

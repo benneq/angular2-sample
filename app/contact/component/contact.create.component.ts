@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core'
 import {Router} from 'angular2/router'
 import {ContactService} from '../contact.service'
+import {Contact} from '../model/contact'
 
 @Component({
     template: `
@@ -18,7 +19,7 @@ export class ContactCreateComponent {
     }
     
     onCreate() {
-        this.service.create({name:"New Name"}).subscribe(
+        this.service.create(new Contact()).subscribe(
            val => this.router.navigate(['ContactDetail', { id: val }]),
            err => console.log("err")
         )

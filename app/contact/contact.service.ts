@@ -7,7 +7,7 @@ import {Contact} from './model/contact'
 export class ContactService extends CrudPageService<Contact> {
     
     constructor(http:Http) {
-        super(http, "/api/contacts");
+        super(Contact, http, "/api/contacts");
     }
     
 }

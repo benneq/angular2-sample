@@ -3,9 +3,9 @@ import {Observable} from 'rxjs/Observable'
 import {Page} from '../interface/page.interface'
 import 'rxjs/Rx'
 
-export class CrudPageService<T> {
+export abstract class CrudPageService<T> {
     
-    constructor(protected http:Http, protected baseUrl:string) {
+    constructor(protected type, protected http:Http, protected baseUrl:string) {
         
     }
     
@@ -18,7 +18,8 @@ export class CrudPageService<T> {
     get(id:string): Observable<T> {
         return this.http
             .get(this.baseUrl + "/" + id + ".json")
-            .map(res => res.json());
+            .map(res => res.json())
+            .map(val => this.fromJson(val));
     }
     
     getPage(page:number, size:number): Observable<Page<T>> {
@@ -28,7 +29,8 @@ export class CrudPageService<T> {
         
         return this.http
             .get(this.baseUrl + ".json", { search: params })
-            .map(res => res.json());
+            .map(res => res.json())
+            .map(val => this.pageFromJson(val));
     }
     
     update(id:string, item:T): Observable<any> {
@@ -41,6 +43,18 @@ export class CrudPageService<T> {
         return this.http
             .delete(this.baseUrl + "/" + id + ".json")
             .map(res => res);
+    }
+    
+    
+    
+    fromJson(obj:T): T {
+        this.type.fromJson(obj);
+        return obj;
+    }
+    
+    private pageFromJson(obj:Page<T>): Page<T> {
+        Page.fromJson(obj, this.type);
+        return obj;
     }
     
 }
