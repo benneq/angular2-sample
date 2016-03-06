@@ -13,7 +13,7 @@ import {ContactComponent} from './contact/component/contact.component'
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-    { path: '/contacts/...', component: ContactComponent, name: 'ContactComponent', useAsDefault: true }
+    { path: '/contacts/...', component: ContactComponent, name: 'Contact', useAsDefault: true }
 ])
 export class AppComponent {
 

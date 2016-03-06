@@ -1,9 +1,8 @@
-import {Http, URLSearchParams} from 'angular2/http'
+import {Http} from 'angular2/http'
 import {Observable} from 'rxjs/Observable'
-import {Page} from '../interface/page.interface'
 import 'rxjs/Rx'
 
-export class CrudPageService<T> {
+export class CrudListService<T> {
     
     constructor(protected http:Http, protected baseUrl:string) {
         
@@ -21,13 +20,9 @@ export class CrudPageService<T> {
             .map(res => res.json());
     }
     
-    getPage(page:number, size:number): Observable<Page<T>> {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page.toString());
-        params.set('size', size.toString());
-        
+    getList(): Observable<T[]> {
         return this.http
-            .get(this.baseUrl + ".json", { search: params })
+            .get(this.baseUrl + ".json")
             .map(res => res.json());
     }
     
