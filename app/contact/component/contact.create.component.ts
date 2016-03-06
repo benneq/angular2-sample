@@ -1,6 +1,6 @@
-import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
-import {ContactService} from '../contact.service';
+import {Component} from 'angular2/core'
+import {Router} from 'angular2/router'
+import {ContactService} from '../contact.service'
 
 @Component({
     template: `
@@ -13,12 +13,15 @@ import {ContactService} from '../contact.service';
 })
 export class ContactCreateComponent {
     
-    constructor(service: ContactService) {
+    constructor(protected service:ContactService, protected router:Router) {
         
     }
     
     onCreate() {
-        
+        this.service.create({name:"New Name"}).subscribe(
+           val => this.router.navigate(['ContactDetail', { id: val }]),
+           err => console.log("err")
+        )
     }
         
 }

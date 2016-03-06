@@ -1,6 +1,6 @@
-import {Component} from 'angular2/core';
-import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
-import {ContactComponent} from './contact/component/contact.component';
+import {Component} from 'angular2/core'
+import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
+import {ContactComponent} from './contact/component/contact.component'
 
 @Component({
     selector: 'app',

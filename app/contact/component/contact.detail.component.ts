@@ -1,6 +1,8 @@
-import {Component} from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
-import {ContactService} from '../contact.service';
+import {Component} from 'angular2/core'
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router'
+import {ItemComponent} from '../../common/component/item.component'
+import {ContactService} from '../contact.service'
+import {Contact} from '../model/contact'
 
 @Component({
     template: `
@@ -11,10 +13,10 @@ import {ContactService} from '../contact.service';
     `,
     directives: [ROUTER_DIRECTIVES]
 })
-export class ContactDetailComponent {
+export class ContactDetailComponent extends ItemComponent<Contact, ContactService> {
     
-    constructor(service: ContactService) {
-        
+    constructor(service:ContactService, params:RouteParams) {
+        super(service, params);
     }
         
 }
