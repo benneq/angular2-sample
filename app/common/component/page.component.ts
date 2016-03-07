@@ -1,3 +1,4 @@
+import {RouteParams} from 'angular2/router'
 import {HasPage} from '../interface/haspage.interface'
 import {Page} from '../interface/page.interface'
 import {Sort} from '../interface/sort.interface'
@@ -5,7 +6,11 @@ import {Sort} from '../interface/sort.interface'
 export abstract class PageComponent<T, S extends HasPage<T>> {
     model:Page<T>;
     
-    constructor(protected service:S, protected page:number=0, protected size:number=20, protected sort:Sort[]=[]) {
+    constructor(protected service:S, protected params:RouteParams, protected page:number=0, protected size:number=20, protected sort:Sort[]=[]) {
+        if(params.params['page']) this.page = +params.params['page'];
+        if(params.params['size']) this.size = +params.params['size'];
+        if(params.params['sort']) this.sort = Sort.parseArray(params.params['sort']);
+        
         this.load();
     }
     
