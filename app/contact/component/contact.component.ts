@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core'
-import {ROUTER_DIRECTIVES, RouteParams, RouteConfig} from 'angular2/router'
+import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 import {ContactCreateComponent} from './contact.create.component'
 import {ContactListComponent} from './contact.list.component'
 import {ContactDetailComponent} from './contact.detail.component'

@@ -3,6 +3,14 @@ export class Contact {
     name:string = "";
     addresses:Address[] = [];
     
+    removeAddress(i:number) {        
+        this.addresses.splice(i, 1);
+    }
+    
+    addAddress(i:number=this.addresses.length, address?:Address):void {
+        this.addresses.splice(i, 0, address || new Address());
+    }
+    
     static fromJson(obj): void {
         obj.__proto__ = Contact.prototype;
         if(obj.addresses) obj.addresses.forEach(val => Address.fromJson(val));
