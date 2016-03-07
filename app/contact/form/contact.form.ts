@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core'
 import {FormBuilder, Validators, ControlGroup} from 'angular2/common'
-import {Contact, Address} from '../model/contact'
+import {Contact} from '../model/contact'
 import {AddressForm} from './address.form'
 
 @Component({
