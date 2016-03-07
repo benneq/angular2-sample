@@ -8,7 +8,7 @@ import {Contact} from '../model/contact'
     template: `
         CONTACT DETAIL COMPONENT
         <div *ngIf="model">
-            <a [routerLink]="['ContactEdit', {id: id}]">{{model?.name}}</a>
+            <a [routerLink]="['ContactEdit', {id: id}]">{{model.name}}</a>
         </div>
     `,
     directives: [ROUTER_DIRECTIVES]

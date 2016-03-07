@@ -1,4 +1,8 @@
 {
     "id": "1",
-    "name": "Name1"
+    "name": "Name1",
+    "addresses": [
+        { "street":"str1" },
+        { "street":"str2" }
+    ]
 }

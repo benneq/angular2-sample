@@ -1,16 +1,16 @@
 export class Contact {
-    id:string;
-    name:string;
-    address:Address;
+    id:string = null;
+    name:string = "";
+    addresses:Address[] = [];
     
     static fromJson(obj): void {
         obj.__proto__ = Contact.prototype;
-        if(obj.address) Address.fromJson(obj.address);
+        if(obj.addresses) obj.addresses.forEach(val => Address.fromJson(val));
     }
 }
 
 export class Address {
-    street:string;
+    street:string = "";
     
     static fromJson(obj): void {
         obj.__proto__ = Address.prototype;

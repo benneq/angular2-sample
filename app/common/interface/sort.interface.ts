@@ -1,13 +1,16 @@
 export class Sorts extends Array<Sort> {
     
+    constructor(sorts:Sort[]) {
+        super();
+        this.push(...sorts);
+    }
+    
     toString(): string {        
         return this.map(val => val.toString()).join(",");
     }
     
     static fromString(term:string): Sorts {
-        let sorts:Sorts = new Sorts();
-        term.match(/[^,]+,[^,]+/g).map(Sort.fromString).forEach(val => sorts.push(val));
-        return sorts;
+        return new Sorts(term.match(/[^,]+,[^,]+/g).map(Sort.fromString));
     }
     
 }
