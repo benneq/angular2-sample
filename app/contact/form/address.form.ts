@@ -5,9 +5,11 @@ import {Address} from '../model/contact'
 @Component({
     selector: 'addressForm',
     template: `
-        <div [ngFormModel]="form">
-            Street: <input ngControl="street" type="text" [(ngModel)]="model.street" #street="ngForm">
-            <div [hidden]="street.valid">Required</div>
+        <div *ngIf="model">
+            <div [ngFormModel]="form">
+                Street: <input ngControl="street" type="text" [(ngModel)]="model.street" #street="ngForm">
+                <div [hidden]="street.valid">Required</div>
+            </div>
         </div>
     `,
     directives: []
