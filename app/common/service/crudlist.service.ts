@@ -1,7 +1,7 @@
 import {Http, URLSearchParams} from 'angular2/http'
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx'
-import {Sort} from '../interface/sort.interface'
+import {Sorts} from '../interface/sort.interface'
 
 export abstract class CrudListService<T> {
     
@@ -22,7 +22,7 @@ export abstract class CrudListService<T> {
             .map(val => this.fromJson(val));
     }
     
-    getList(sort:Sort[]=[]): Observable<T[]> {
+    getList(sort:Sorts=[]): Observable<T[]> {
         let params: URLSearchParams = new URLSearchParams();
         sort.forEach(e => params.append('sort', e.toString()));
         
