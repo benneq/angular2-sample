@@ -1,6 +1,7 @@
 import {Http, URLSearchParams} from 'angular2/http'
 import {Observable} from 'rxjs/Observable'
 import {Page} from '../interface/page.interface'
+import {Sort} from '../interface/sort.interface'
 import 'rxjs/Rx'
 
 export abstract class CrudPageService<T> {
@@ -22,10 +23,11 @@ export abstract class CrudPageService<T> {
             .map(val => this.fromJson(val));
     }
     
-    getPage(page:number, size:number): Observable<Page<T>> {
+    getPage(page:number, size:number, sort:Sort[]=[]): Observable<Page<T>> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page.toString());
         params.set('size', size.toString());
+        sort.forEach(e => params.append('sort', e.toString()));
         
         return this.http
             .get(this.baseUrl + ".json", { search: params })

@@ -3,6 +3,7 @@ import {RouteParams, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'
 import {ContactService} from '../contact.service'
 import {Contact} from '../model/contact'
 import {PageComponent} from '../../common/component/page.component'
+import {Sort, Direction} from '../../common/interface/sort.interface'
 
 @Component({
     template: `
