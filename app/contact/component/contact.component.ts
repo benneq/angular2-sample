@@ -2,7 +2,7 @@ import {Component} from 'angular2/core'
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 import {ContactCreateComponent} from './contact.create.component'
 import {ContactListComponent} from './contact.list.component'
-import {ContactDetailComponent} from './contact.detail.component'
+import {ContactShowComponent} from './contact.show.component'
 import {ContactEditComponent} from './contact.edit.component'
 
 
@@ -16,10 +16,10 @@ import {ContactEditComponent} from './contact.edit.component'
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-    { path: '/', component: ContactListComponent, name: 'ContactList', useAsDefault: true },
-    { path: '/new', component: ContactCreateComponent, name: 'ContactCreate' },
-    { path: '/:id', component: ContactDetailComponent, name: 'ContactDetail' },
-    { path: '/:id/edit', component: ContactEditComponent, name: 'ContactEdit' }
+    { path: '/', component: ContactListComponent, name: 'List', useAsDefault: true },
+    { path: '/new', component: ContactCreateComponent, name: 'Create' },
+    { path: '/:id', component: ContactShowComponent, name: 'Show' },
+    { path: '/:id/edit', component: ContactEditComponent, name: 'Edit' }
 ])
 export class ContactComponent {
     

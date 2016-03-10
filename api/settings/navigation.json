@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Contact List",
+        "path": ["/Contact"]
+    },
+    {
+        "name": "New Contact",
+        "path": ["/Contact/Create"]
+    }
+]

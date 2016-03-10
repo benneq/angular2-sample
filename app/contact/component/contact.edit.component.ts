@@ -21,7 +21,7 @@ export class ContactEditComponent extends ItemComponent<Contact, ContactService>
     
     onSave() {
        this.service.update(this.id, this.model).subscribe(
-           val => this.router.navigate(['ContactDetail', { id: val }]),
+           val => this.router.navigate(['Detail', { id: val }]),
            err => console.log("err")
        );
     }

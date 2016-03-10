@@ -1,7 +1,7 @@
-import {Directive, Renderer, ElementRef, forwardRef, Provider, Input} from 'angular2/core';
+import {Directive, Renderer, ElementRef, forwardRef, Provider, Input} from 'angular2/core'
 import {Observable} from 'rxjs/Rx'
-import {NG_VALUE_ACCESSOR, DefaultValueAccessor} from 'angular2/common';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {NG_VALUE_ACCESSOR, DefaultValueAccessor} from 'angular2/common'
+import {CONST_EXPR} from 'angular2/src/facade/lang'
 
 const PROVIDER = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => QueryDirective), multi: true}));
 
@@ -36,7 +36,7 @@ export class QueryDirective extends DefaultValueAccessor {
             o = o.distinctUntilChanged();
         }
         
-        o.subscribe(val => this.onChange(val));
+        o.subscribe(this.onChange);
     }
 
 } 

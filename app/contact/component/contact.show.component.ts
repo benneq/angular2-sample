@@ -9,13 +9,13 @@ import {ContactView} from '../view/contact.view'
     template: `
         CONTACT DETAIL COMPONENT
         <div *ngIf="model">
-            <a [routerLink]="['ContactEdit', {id: id}]">Edit</a>
+            <a [routerLink]="['Edit', {id: id}]">Edit</a>
             <contactView [model]="model"></contactView>
         </div>
     `,
     directives: [ROUTER_DIRECTIVES, ContactView]
 })
-export class ContactDetailComponent extends ItemComponent<Contact, ContactService> {
+export class ContactShowComponent extends ItemComponent<Contact, ContactService> {
     
     constructor(service:ContactService, params:RouteParams) {
         super(service, params);

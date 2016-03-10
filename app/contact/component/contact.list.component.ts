@@ -8,11 +8,11 @@ import {PageComponent} from '../../common/component/page.component'
     template: `
         CONTACT LIST COMPONENT
         <div>
-            <a [routerLink]="['ContactCreate']">New</a>
+            <a [routerLink]="['Create']">New</a>
         </div>
         <div *ngIf="model">
             <div *ngFor="#item of model.content">
-                <a [routerLink]="['ContactDetail', {id: item.id}]">{{item.name}}</a>
+                <a [routerLink]="['Show', {id: item.id}]">{{item.name}}</a>
             </div>
         </div>
     `,

@@ -8,17 +8,20 @@ import {NavigationService} from '../navigation.service'
         NAV
         <nav>
             <ul>
-                <li><a [routerLink]="['/Contact']">List Contacts</a></li>
-                <li><a [routerLink]="['/Contact/ContactCreate']">New Contact</a></li>
+                <li *ngFor="#route of routes"><a [routerLink]="route.path">{{route.name}}</a></li>
             </ul>
         </nav>
     `,
     directives: [ROUTER_DIRECTIVES]
 })
 export class NavigationComponent {
+    routes;
     
     constructor(service:NavigationService) {
-        
+        service.get().subscribe(
+            val => this.routes = val,
+            err => console.log("err")
+        );
     }
     
 }
