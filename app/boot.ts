@@ -5,6 +5,7 @@ import {APP_BASE_HREF, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy}
 import {HTTP_PROVIDERS} from 'angular2/http'
 import {NavigationService} from './navigation/navigation.service'
 import {ContactService} from './contact/contact.service'
+import {HAS_PAGE_TOKEN} from './common/interface/haspage.interface'
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
@@ -12,5 +13,6 @@ bootstrap(AppComponent, [
     provide(APP_BASE_HREF, {useValue: '/'}),
     HTTP_PROVIDERS,
     NavigationService,
-    ContactService
+    ContactService,
+    provide(HAS_PAGE_TOKEN, { useClass: ContactService, multi: true })
 ]);
