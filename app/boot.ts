@@ -3,16 +3,14 @@ import {AppComponent} from './app.component'
 import {provide} from 'angular2/core'
 import {APP_BASE_HREF, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router'
 import {HTTP_PROVIDERS} from 'angular2/http'
-import {NavigationService} from './navigation/navigation.service'
-import {ContactService} from './contact/contact.service'
-import {HAS_PAGE_TOKEN} from './common/interface/haspage.interface'
+import {NAVIGATION_PROVIDERS} from './navigation/navigation.module'
+import {CONTACT_PROVIDERS} from './contact/contact.module'
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide(APP_BASE_HREF, {useValue: '/'}),
     HTTP_PROVIDERS,
-    NavigationService,
-    ContactService,
-    provide(HAS_PAGE_TOKEN, { useClass: ContactService, multi: true })
+    NAVIGATION_PROVIDERS,
+    CONTACT_PROVIDERS
 ]);

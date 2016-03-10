@@ -39,4 +39,4 @@ export class QueryDirective extends DefaultValueAccessor {
         o.subscribe(this.onChange);
     }
 
-} 
+}
