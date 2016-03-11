@@ -19,7 +19,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     
     constructor(@Inject(HAS_PAGE_TOKEN) protected services:HasPage<any>[], @Optional() ngControl: NgControl, renderer: Renderer, private el: ElementRef) {
         super(renderer, el);
-        ngControl.valueAccessor = this;
+        if(ngControl) ngControl.valueAccessor = this;
     }
     
     ngOnInit() {
