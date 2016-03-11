@@ -22,7 +22,7 @@ export class QueryDirective extends DefaultValueAccessor {
     ngOnInit() {
         var o:Observable<string> = Observable.fromEvent(this.el.nativeElement, 'keyup')
             .map(val => this.el.nativeElement.value)
-            .debounceTime(this.timeout)
+            .debounceTime(this.timeout);
             
         if(this.omitMultiWhitespace) {
             o = o.map((val: string) => val.replace(/ +(?= )/g,''));
