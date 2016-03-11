@@ -15,8 +15,8 @@ export class QueryDirective extends DefaultValueAccessor {
     @Input() omitMultiWhitespace: boolean = true;
     @Input() trim: boolean = true;
 
-    constructor(_renderer: Renderer, private el: ElementRef) {
-        super(_renderer, el);
+    constructor(renderer: Renderer, private el: ElementRef) {
+        super(renderer, el);
     }
     
     ngOnInit() {
