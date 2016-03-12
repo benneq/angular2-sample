@@ -8,18 +8,20 @@ import {Observable} from 'rxjs/Rx'
 @Component({
     selector: 'entitySearch',
     template: `
-        <input query type="text" [ngFormControl]="term" (blur)="results=[]" (focus)="search()">
-        <ul>
+        <input query type="text" [ngFormControl]="term" (blur)="hidden=true" (focus)="show()">
+        <ul *ngIf="!hidden">
             <li *ngFor="#res of results" (click)="select(res)">{{res.name}}</li>
         </ul>
     `,
     directives: [QueryDirective]
 })
 export class EntitySearchComponent extends DefaultValueAccessor {
-    @Input() omitEmpty:boolean = false;
+    @Input() minLength:number = 0;
+    @Input() searchOnShow:boolean = false;
     
-    results:any[];
-    term = new Control();
+    hidden:boolean = true;
+    results:any[] = null;
+    term:Control = new Control();
     
     constructor(@Inject(HAS_PAGE_TOKEN) protected services:HasPage<any>[], @Optional() ngControl: NgControl, renderer: Renderer, private el: ElementRef) {
         super(renderer, el);
@@ -29,12 +31,17 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     ngOnInit() {
         var o:Observable<string> = this.term.valueChanges;
         
-        if(this.omitEmpty) {
-            o = o.filter(val => val?true:false);
-        } 
+        if(this.minLength > 0) {
+            o = o.filter(val => val && val.length >= this.minLength);
+        }
         
         o.switchMap(val => this.services[0].getPage(0, 20))
             .subscribe((val:Page<any>) => this.results = val.content);
+    }
+    
+    show() {
+        if(this.results == null || this.searchOnShow) this.search();
+        this.hidden = false;
     }
     
     search() {
