@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Rx'
         <input query type="text" [ngFormControl]="term" (focus)="show()">
         <ul *ngIf="!hidden">
             <li *ngIf="!term.valid">Invalid Input</li>
-            <template [ngIf]="!hideResultsOnInvalid || hideResultsOnInvalid && term.valid">
+            <template [ngIf]="!hideOnInvalid || term.valid">
                 <li *ngIf="!results">No Results Found</li>
                 <li *ngFor="#res of results" (click)="select(res)">{{format(res)}}</li>
             </template>
@@ -23,7 +23,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() minLength:number = 0;
     @Input() searchOnShow:boolean = false;
     @Input() hideOnSelect:boolean = true;
-    @Input() hideResultsOnInvalid:boolean = true;
+    @Input() hideOnInvalid:boolean = true;
     
     hidden:boolean = true;
     results:any[] = null;
@@ -47,13 +47,19 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     
     writeValue(value: any): void {
         if(value) {
-            this.term.updateValue(value.name, {emitEvent:false});
+            this.term.updateValue(this.format(value), {emitEvent:false});
         }
     }
     
     show() {
-        if(this.results == null || this.searchOnShow) this.search();
+        if(this.results == null || this.searchOnShow) {
+            this.search();
+        }
         this.hidden = false;
+    }
+    
+    hide() {
+        this.hidden = true;
     }
     
     search() {
@@ -64,7 +70,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
         this.onChange(item);
         this.writeValue(item);
         if(this.hideOnSelect) {
-            this.hidden = true;
+            this.hide();
         }
     }
     
