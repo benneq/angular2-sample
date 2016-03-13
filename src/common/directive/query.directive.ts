@@ -10,8 +10,6 @@ const PROVIDER = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, {useExisting: forwar
     bindings: [PROVIDER]
 })
 export class QueryDirective extends DefaultValueAccessor {
-    @Input() timeout: number = 250;
-    @Input() omitEqual: boolean = true;
     @Input() omitMultiWhitespace: boolean = true;
     @Input() trim: boolean = true;
 
@@ -21,8 +19,7 @@ export class QueryDirective extends DefaultValueAccessor {
     
     ngOnInit() {
         var o:Observable<string> = Observable.fromEvent(this.el.nativeElement, 'keyup')
-            .map((val:any) => val.target.value)
-            .debounceTime(this.timeout);
+            .map((val:any) => val.target.value);
             
         if(this.omitMultiWhitespace) {
             o = o.map((val: string) => val.replace(/ +(?= )/g,''));
@@ -30,10 +27,6 @@ export class QueryDirective extends DefaultValueAccessor {
         
         if(this.trim) {
             o = o.map((val: string) => val.trim());
-        }
-        
-        if(this.omitEqual) {
-            o = o.distinctUntilChanged();
         }
         
         o.subscribe(this.onChange);

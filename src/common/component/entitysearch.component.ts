@@ -9,8 +9,8 @@ import {Observable} from 'rxjs/Rx'
     selector: 'entitySearch',
     template: `
         <input query type="text" [ngFormControl]="term" (focus)="show()">
+        <div *ngIf="pending">PENDING</div>
         <ul *ngIf="!hidden">
-            <li *ngIf="!term.valid">Invalid Input</li>
             <template [ngIf]="!hideOnInvalid || term.valid">
                 <li *ngIf="!results">No Results Found</li>
                 <li *ngFor="#res of results" (click)="select(res)">{{format(res)}}</li>
@@ -20,11 +20,13 @@ import {Observable} from 'rxjs/Rx'
     directives: [QueryDirective]
 })
 export class EntitySearchComponent extends DefaultValueAccessor {
-    @Input() minLength:number = 0;
+    @Input() timeout:number = 250;
+    @Input() minLength:number = 3;
     @Input() searchOnShow:boolean = false;
     @Input() hideOnSelect:boolean = true;
     @Input() hideOnInvalid:boolean = true;
     
+    pending:boolean = false;
     hidden:boolean = true;
     results:any[] = null;
     term:Control = new Control();
@@ -40,8 +42,18 @@ export class EntitySearchComponent extends DefaultValueAccessor {
         }
         
         this.term.valueChanges
-            .filter(val => this.term.valid)
-            .switchMap(val => this.services[0].getPage(0, 20))
+            .do(() => this.pending = this.term.valid)
+            .debounceTime(this.timeout)
+            .distinctUntilChanged((x,y) => {
+                if(x == y) {
+                    this.pending = false;
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .switchMap(val => this.term.valid ? this.services[0].getPage(0, 20) : Observable.empty())
+            .do(() => this.pending = false)
             .subscribe((val:Page<any>) => this.results = val.content);
     }
     
