@@ -1,7 +1,7 @@
-import {Component} from 'angular2/core'
-import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
-import {ContactComponent} from './contact/component/contact.component'
+import {Component, Inject} from 'angular2/core'
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router'
 import {NavigationComponent} from './navigation/component/navigation.component'
+import {ROOT_ROUTE_TOKEN, RootRoute} from './common/interface/rootroute'
 
 @Component({
     selector: 'app',
@@ -13,13 +13,10 @@ import {NavigationComponent} from './navigation/component/navigation.component'
         `,
     directives: [ROUTER_DIRECTIVES, NavigationComponent]
 })
-@RouteConfig([
-    { path: '/contacts/...', component: ContactComponent, name: 'Contact', useAsDefault: true }
-])
 export class AppComponent {
 
-    constructor() {
-        
+    constructor(router:Router, @Inject(ROOT_ROUTE_TOKEN) rootRoutes:RootRoute[]) {
+        router.config(rootRoutes);
     }
     
 }
