@@ -1,5 +1,5 @@
 import {Component, Optional, Input, Inject, Renderer, ElementRef} from 'angular2/core'
-import {DefaultValueAccessor, NgControl, Control} from 'angular2/common'
+import {DefaultValueAccessor, NgControl, Control, Validators} from 'angular2/common'
 import {HasPage, HAS_PAGE_TOKEN} from '../interface/haspage.interface'
 import {Page} from '../interface/page.interface'
 import {QueryDirective} from '../directive/query.directive'
@@ -8,9 +8,13 @@ import {Observable} from 'rxjs/Rx'
 @Component({
     selector: 'entitySearch',
     template: `
-        <input query type="text" [ngFormControl]="term" (blur)="hidden=true" (focus)="show()">
+        <input query type="text" [ngFormControl]="term" (focus)="show()">
         <ul *ngIf="!hidden">
-            <li *ngFor="#res of results" (click)="select(res)">{{res.name}}</li>
+            <li *ngIf="!term.valid">Invalid Input</li>
+            <template [ngIf]="!hideResultsOnInvalid || hideResultsOnInvalid && term.valid">
+                <li *ngIf="!results">No Results Found</li>
+                <li *ngFor="#res of results" (click)="select(res)">{{format(res)}}</li>
+            </template>
         </ul>
     `,
     directives: [QueryDirective]
@@ -18,6 +22,8 @@ import {Observable} from 'rxjs/Rx'
 export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() minLength:number = 0;
     @Input() searchOnShow:boolean = false;
+    @Input() hideOnSelect:boolean = true;
+    @Input() hideResultsOnInvalid:boolean = true;
     
     hidden:boolean = true;
     results:any[] = null;
@@ -29,14 +35,20 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     }
     
     ngOnInit() {
-        var o:Observable<string> = this.term.valueChanges;
-        
         if(this.minLength > 0) {
-            o = o.filter(val => val && val.length >= this.minLength);
+            this.term.validator = Validators.compose([Validators.required, Validators.minLength(this.minLength)]);
         }
         
-        o.switchMap(val => this.services[0].getPage(0, 20))
+        this.term.valueChanges
+            .filter(val => this.term.valid)
+            .switchMap(val => this.services[0].getPage(0, 20))
             .subscribe((val:Page<any>) => this.results = val.content);
+    }
+    
+    writeValue(value: any): void {
+        if(value) {
+            this.term.updateValue(value.name, {emitEvent:false});
+        }
     }
     
     show() {
@@ -50,7 +62,14 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     
     select(item) {
         this.onChange(item);
-        this.term.updateValue(item.name);
+        this.writeValue(item);
+        if(this.hideOnSelect) {
+            this.hidden = true;
+        }
+    }
+    
+    format(item) {
+        return item.name;
     }
         
 }
