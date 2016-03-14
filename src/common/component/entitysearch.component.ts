@@ -1,4 +1,4 @@
-import {Component, Optional, Input, Inject, Renderer, ElementRef} from 'angular2/core'
+import {Component, Optional, Input, Inject, Renderer, ElementRef, EventEmitter} from 'angular2/core'
 import {DefaultValueAccessor, NgControl, Control, Validators} from 'angular2/common'
 import {HasPage, HAS_PAGE_TOKEN} from '../interface/haspage.interface'
 import {Page} from '../interface/page.interface'
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Rx'
         <input query type="text" [ngFormControl]="term" (focus)="show()">
         <div *ngIf="pending">PENDING</div>
         <ul *ngIf="!hidden">
-            <template [ngIf]="!hideOnInvalid || term.valid">
+            <template [ngIf]="!pending && (!hideOnInvalid || term.valid)">
                 <li *ngIf="!results">No Results Found</li>
                 <li *ngFor="#res of results" (click)="select(res)">{{format(res)}}</li>
             </template>
@@ -21,64 +21,75 @@ import {Observable} from 'rxjs/Rx'
 })
 export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() timeout:number = 250;
-    @Input() minLength:number = 3;
+    @Input() minLength:number = 0;
     @Input() searchOnShow:boolean = false;
     @Input() hideOnSelect:boolean = true;
     @Input() hideOnInvalid:boolean = true;
     
+    searchEmitter:EventEmitter<string> = new EventEmitter();
+    term:Control = new Control();
+    
     pending:boolean = false;
     hidden:boolean = true;
     results:any[] = null;
-    term:Control = new Control();
     
-    constructor(@Inject(HAS_PAGE_TOKEN) protected services:HasPage<any>[], @Optional() ngControl: NgControl, renderer: Renderer, private el: ElementRef) {
+    
+    
+    constructor(@Inject(HAS_PAGE_TOKEN) protected services:HasPage<any>[], @Optional() ngControl:NgControl, renderer:Renderer, el:ElementRef) {
         super(renderer, el);
         if(ngControl) ngControl.valueAccessor = this;
     }
     
-    ngOnInit() {
+    ngOnInit() : void {
         if(this.minLength > 0) {
-            this.term.validator = Validators.compose([Validators.required, Validators.minLength(this.minLength)]);
+            this.term.validator = Validators.compose([
+                Validators.required,
+                Validators.minLength(this.minLength)
+            ]);
         }
         
-        this.term.valueChanges
-            .do(() => this.pending = this.term.valid)
-            .debounceTime(this.timeout)
+        this.searchEmitter
             .distinctUntilChanged((x,y) => {
                 if(x == y) {
                     this.pending = false;
                     return true;
                 } else {
+                    this.pending = this.term.valid;
                     return false;
                 }
             })
             .switchMap(val => this.term.valid ? this.services[0].getPage(0, 20) : Observable.empty())
             .do(() => this.pending = false)
             .subscribe((val:Page<any>) => this.results = val.content);
+        
+        this.term.valueChanges
+            .do(() => this.pending = this.term.valid)
+            .debounceTime(this.timeout)
+            .subscribe((val:string) => this.search(val));
     }
     
-    writeValue(value: any): void {
+    writeValue(value:any) : void {
         if(value) {
             this.term.updateValue(this.format(value), {emitEvent:false});
         }
     }
     
-    show() {
+    show() : void {
         if(this.results == null || this.searchOnShow) {
-            this.search();
+            this.search(this.term.value);
         }
         this.hidden = false;
     }
     
-    hide() {
+    hide() : void {
         this.hidden = true;
     }
     
-    search() {
-        this.term.updateValue(this.term.value);
+    search(val:string) : void {
+        this.searchEmitter.emit(val);
     }
     
-    select(item) {
+    select(item:any) : void {
         this.onChange(item);
         this.writeValue(item);
         if(this.hideOnSelect) {
@@ -86,7 +97,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
         }
     }
     
-    format(item) {
+    format(item:any) : string {
         return item.name;
     }
         
