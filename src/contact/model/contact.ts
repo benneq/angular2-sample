@@ -29,4 +29,4 @@ export class Address {
     static fromJson(obj): void {
         obj.__proto__ = Address.prototype;
     }
-} 
+}
