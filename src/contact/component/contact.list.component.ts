@@ -50,7 +50,9 @@ export class ContactListComponent extends PageComponent<Contact, ContactService>
     }
     
     routerOnReuse(next: ComponentInstruction, prev: ComponentInstruction) : void {
-        this.load();
+        if(next.params != prev.params) {
+            this.load();
+        }
     }
     
 }
