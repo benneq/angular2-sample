@@ -1,18 +1,20 @@
+import {Arrays} from '../../common/util/arrays'
+
 export class Contact {
     id:string = null;
     name:string = "";
     addresses:Address[] = [];
     
-    removeAddress(i:number) {        
-        this.addresses.splice(i, 1);
+    removeAddress(i:number) {
+        Arrays.remove(this.addresses, i);
     }
     
     addAddress(i:number=this.addresses.length, address?:Address):void {
-        this.addresses.splice(i, 0, address || new Address());
+        Arrays.add(this.addresses, i, address || new Address());
     }
     
     moveAddress(from:number, to:number) {
-        this.addresses.splice(to, 0, this.addresses.splice(from, 1)[0]);
+        Arrays.move(this.addresses, from, to);
     }
     
     static fromJson(obj): void {
@@ -27,4 +29,4 @@ export class Address {
     static fromJson(obj): void {
         obj.__proto__ = Address.prototype;
     }
-}
+} 
