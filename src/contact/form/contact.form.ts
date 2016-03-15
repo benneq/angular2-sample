@@ -2,14 +2,21 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'a
 import {FormBuilder, Validators, ControlGroup} from 'angular2/common'
 import {Contact} from '../model/contact'
 import {AddressForm} from './address.form'
+import {EntitySearchComponent} from '../../common/component/entitysearch.component'
 
 @Component({
     selector: 'contactForm',
     template: `
         <div *ngIf="model">
             <div [ngFormModel]="form">
-                Name: <input ngControl="name" type="text" [(ngModel)]="model.name" #name="ngForm">
-                <div [hidden]="name.valid">Required</div>
+                <div>
+                    Name: <input ngControl="name" type="text" [(ngModel)]="model.name" #name="ngForm">
+                    <span [hidden]="name.valid">Required</span>
+                </div>
+                <div>
+                    Company: <entitySearch ngControl="company" [(ngModel)]="model.company" #company="ngForm"></entitySearch>
+                    <span [hidden]="company.valid">Required</span>
+                </div>
             </div>
             <div *ngFor="#address of model.addresses; #i = index">
                 <addressForm [model]="address"></addressForm>
@@ -18,7 +25,7 @@ import {AddressForm} from './address.form'
             <button (click)="model.addAddress()">Add Address</button>
         </div>
     `,
-    directives: [AddressForm]
+    directives: [AddressForm, EntitySearchComponent]
 })
 export class ContactForm {
     @Input() model:Contact;
@@ -26,7 +33,8 @@ export class ContactForm {
     
     constructor(private fb:FormBuilder) {
         this.form = this.fb.group({
-            name: ['', Validators.required]
+            name: ['', Validators.required],
+            company: [null, Validators.required]
         });
     }
         

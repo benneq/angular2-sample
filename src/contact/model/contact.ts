@@ -3,6 +3,7 @@ import {Arrays} from '../../common/util/arrays'
 export class Contact {
     id:string = null;
     name:string = "";
+    company:Contact = null;
     addresses:Address[] = [];
     
     removeAddress(i:number) {

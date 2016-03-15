@@ -7,7 +7,12 @@ import {AddressView} from './address.view'
     selector: 'contactView',
     template: `
         <div *ngIf="model">
-            Name: {{model.name}}
+            <div>
+                Name: {{model.name}}
+            </div>
+            <div *ngIf="model.company">
+                Company: {{model.company.name}}
+            </div>
             <div *ngFor="#address of model.addresses">
                 <addressView [model]="address"></addressView>
             </div>
