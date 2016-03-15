@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Rx'
 @Component({
     selector: 'entitySearch',
     template: `
-        <input query type="text" [ngFormControl]="term" (focus)="show()">
+        <input query type="text" [ngFormControl]="term" (focus)="show()" [disabled]="disabled">
         <div *ngIf="pending">PENDING</div>
         <ul *ngIf="!hidden">
             <template [ngIf]="!pending && (!hideOnInvalid || term.valid)">
@@ -25,6 +25,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() searchOnShow:boolean = false;
     @Input() hideOnSelect:boolean = true;
     @Input() hideOnInvalid:boolean = true;
+    @Input() disabled: boolean = false;
     
     searchEmitter:EventEmitter<string> = new EventEmitter();
     term:Control = new Control();
