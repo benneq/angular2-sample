@@ -11,5 +11,11 @@ export class Arrays {
     static move(arr:any[], from:number, to:number) {
         arr.splice(to, 0, arr.splice(from, 1)[0]);
     }
+    
+    static swap(arr:any[], x:number, y:number) {
+        var tmp = arr[y];
+        arr[y] = arr[x];
+        arr[x] = tmp;
+    }
 
-} 
+}

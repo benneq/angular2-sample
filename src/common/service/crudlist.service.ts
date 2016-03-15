@@ -22,9 +22,10 @@ export abstract class CrudListService<T> {
             .map(val => this.fromJson(val));
     }
     
-    getList(sort:Sorts=[]): Observable<T[]> {
+    getList(sort:Sorts=[], filter?:{}): Observable<T[]> {
         let params: URLSearchParams = new URLSearchParams();
         sort.forEach(e => params.append('sort', e.toString()));
+        Object.keys(filter).forEach(key => params.append(key, filter[key]));
         
         return this.http
             .get(this.baseUrl + ".json", { search: params })

@@ -6,5 +6,5 @@ import {Sorts} from './sort.interface'
 export const HAS_PAGE_TOKEN = new OpaqueToken('HasPage');
 
 export interface HasPage<T> {
-    getPage(page:number, size:number, sort?:Sorts): Observable<Page<T>>;
+    getPage(page:number, size:number, sort?:Sorts, filter?:{}): Observable<Page<T>>;
 }

@@ -23,11 +23,12 @@ export abstract class CrudPageService<T> {
             .map(val => this.fromJson(val));
     }
     
-    getPage(page:number, size:number, sort:Sorts=[]): Observable<Page<T>> {
+    getPage(page:number, size:number, sort:Sorts=[], filter:{}={}): Observable<Page<T>> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page.toString());
         params.set('size', size.toString());
         sort.forEach(e => params.append('sort', e.toString()));
+        Object.keys(filter).forEach(key => params.append(key, filter[key]));
         
         return this.http
             .get(this.baseUrl + ".json", { search: params })
