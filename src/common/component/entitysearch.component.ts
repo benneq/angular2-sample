@@ -1,9 +1,9 @@
-import {Component, Optional, Input, Inject, Renderer, ElementRef, EventEmitter} from 'angular2/core'
+import {Component, Optional, Input, Inject, Renderer, ElementRef} from 'angular2/core'
 import {DefaultValueAccessor, NgControl, Control, Validators} from 'angular2/common'
 import {HasPage, HAS_PAGE_TOKEN} from '../interface/haspage.interface'
 import {Page} from '../interface/page.interface'
 import {QueryDirective} from '../directive/query.directive'
-import {Observable} from 'rxjs/Rx'
+import {Observable, Subject} from 'rxjs/Rx'
 
 @Component({
     selector: 'entitySearch',
@@ -27,7 +27,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() hideOnInvalid:boolean = true;
     @Input() disabled: boolean = false;
     
-    searchEmitter:EventEmitter<string> = new EventEmitter();
+    subject:Subject<string> = new Subject();
     term:Control = new Control();
     
     pending:boolean = false;
@@ -49,7 +49,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
             ]);
         }
         
-        this.searchEmitter
+        this.subject
             .distinctUntilChanged((x,y) => {
                 if(x == y) {
                     this.pending = false;
@@ -87,7 +87,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     }
     
     search(val:string) : void {
-        this.searchEmitter.emit(val);
+        this.subject.next(val);
     }
     
     select(item:any) : void {
