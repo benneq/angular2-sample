@@ -1,22 +1,22 @@
-import {RouteParams} from 'angular2/router'
+import {Router, RouteParams, CanReuse, OnReuse, ComponentInstruction} from 'angular2/router'
 import {HasPage} from '../interface/haspage.interface'
 import {Page} from '../interface/page.interface'
 import {Sorts} from '../interface/sort.interface'
 
-export abstract class PageComponent<T, S extends HasPage<T>> {
+export abstract class PageComponent<T, S extends HasPage<T>> implements CanReuse, OnReuse {
+    page:number;
+    size:number;
+    sort:Sorts;
+    filter:{};
     model:Page<T>;
     
-    constructor(protected service:S, protected params:RouteParams, protected page:number=0, protected size:number=20, protected sort:Sorts=[], protected filter:{}={}) {
-        if(params.params['page']) this.page = +params.params['page'];
-        if(params.params['size']) this.size = +params.params['size'];
-        if(params.params['sort']) this.sort = Sorts.fromString(params.params['sort']);
-        
-        this.load();
+    
+    
+    constructor(protected service:S, protected router:Router, protected params:RouteParams, private defaultPage:number=0, private defaultSize:number=20, private defaultSort:Sorts=[]) {
+        this.parseParams(params.params);
     }
     
-    load(page?:number): void {
-        if(page != undefined) this.page = page;
-        
+    load(): void {
         this.service.getPage(this.page, this.size, this.sort, this.filter).subscribe(
             val => this.model = val,
             err => console.log("err")
@@ -25,7 +25,46 @@ export abstract class PageComponent<T, S extends HasPage<T>> {
     
     loadNext(): void {
         this.page++;
-        this.load();
+        this.setParams();
+    }
+    
+    parseParams(params:{[key:string]:string}): void {
+        this.page = params['page'] ? +params['page'] : this.defaultPage;
+        this.size = params['size'] ? +params['size'] : this.defaultSize;
+        this.sort = params['sort'] ? Sorts.fromString(params['sort']) : this.defaultSort;
+        
+        delete params['page'];
+        delete params['size'];
+        delete params['sort'];
+        
+        this.filter = {};
+        for(let param in params) {
+            this.filter[param] = params[param];
+        }
+    }
+    
+    setParams(): void {
+        var params:{[key:string]:string} = {};
+        params['page'] = this.page.toString();
+        params['size'] = this.size.toString();
+        params['sort'] = this.sort.toString();
+        
+        for(let param in this.filter) {
+            params[param] = this.filter[param];
+        }
+        
+        this.router.navigate(['/Contact/List', params]);
+    }
+    
+    routerCanReuse(next: ComponentInstruction, prev: ComponentInstruction): boolean {
+        return next.componentType == prev.componentType;
+    }
+    
+    routerOnReuse(next: ComponentInstruction, prev: ComponentInstruction): void {
+        if(next.params != prev.params) {
+            this.parseParams(next.params);
+            this.load();
+        }
     }
     
 }
