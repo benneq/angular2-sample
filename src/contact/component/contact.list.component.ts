@@ -4,15 +4,12 @@ import {RouteParams, Router, ROUTER_DIRECTIVES, ComponentInstruction} from 'angu
 import {ContactService} from '../contact.service'
 import {Contact} from '../model/contact'
 import {PageComponent} from '../../common/component/page.component'
-import {QueryDirective} from '../../common/directive/query.directive'
+import {ContactFilterForm} from '../form/contactfilter.form'
 
 @Component({
     template: `
         CONTACT LIST COMPONENT
-        <div [ngFormModel]="form">
-            Query: <input query type="text" ngControl="q">
-        </div>
-        
+        <contactFilter [ngFormControl]="filterForm"></contactFilter>
         <div>
             <a [routerLink]="['Create']">New</a>
         </div>
@@ -22,30 +19,30 @@ import {QueryDirective} from '../../common/directive/query.directive'
             </div>
         </div>
     `,
-    directives: [ROUTER_DIRECTIVES, QueryDirective]
+    directives: [ROUTER_DIRECTIVES, ContactFilterForm]
 })
 export class ContactListComponent extends PageComponent<Contact, ContactService> {
-    form:ControlGroup;
+    filterForm:Control = new Control();
 
     
     
     constructor(service:ContactService, router:Router, params:RouteParams, fb:FormBuilder) {
         super(service, router, params);
-        
-        this.form = fb.group({
-            q: [this.filter['q']]
-        });
-        
         this.load();
     }
     
     ngOnInit(): void {
-        this.form.valueChanges
-            .debounceTime(250)
-            .subscribe(val => {
-                this.filter = val;
-                this.setParams();
-            });
+        this.filterForm.valueChanges.subscribe(val => {
+            this.filter = val;
+            this.setParams();
+        });
+        
+        this.filterForm.updateValue(this.filter, {emitEvent:false});
+    }
+    
+    load() {
+        super.load();
+        this.filterForm.updateValue(this.filter, {emitEvent:false});
     }
     
 }
