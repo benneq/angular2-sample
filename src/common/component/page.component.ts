@@ -8,6 +8,8 @@ export abstract class PageComponent<T, S extends HasPage<T>> implements CanReuse
     size:number;
     sort:Sorts;
     filter:{};
+    
+    pending:boolean = false;
     model:Page<T>;
     
     
@@ -17,9 +19,11 @@ export abstract class PageComponent<T, S extends HasPage<T>> implements CanReuse
     }
     
     load(): void {
+        this.pending = true;
         this.service.getPage(this.page, this.size, this.sort, this.filter).subscribe(
             val => this.model = val,
-            err => console.log("err")
+            err => console.log("err"),
+            () => this.pending = false
         );
     }
     

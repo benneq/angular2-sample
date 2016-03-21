@@ -13,7 +13,10 @@ import {ContactFilterForm} from '../form/contactfilter.form'
         <div>
             <a [routerLink]="['Create']">New</a>
         </div>
-        <div *ngIf="model">
+        <div *ngIf="pending">
+            PENDING
+        </div>
+        <div *ngIf="model && !pending">
             <div *ngFor="#item of model.content">
                 <a [routerLink]="['Show', {id: item.id}]">{{item.name}}</a>
             </div>
