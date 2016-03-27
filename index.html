@@ -22,7 +22,14 @@
           dist: {
             format: 'register',
             defaultExtension: 'js'
+          },
+          '@ngrx/store' : {
+            main: 'dist/index.js',
+            defaultExtension: 'js'
           }
+        },
+        map: {
+          '@ngrx/store': 'node_modules/@ngrx/store'
         }
       });
       System.import('dist/boot').then(null, console.error.bind(console));

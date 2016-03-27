@@ -1,4 +1,5 @@
 import {bootstrap}    from 'angular2/platform/browser'
+import {STORE_PROVIDERS} from './store/store.module'
 import {AppComponent} from './app.component'
 import {provide} from 'angular2/core'
 import {APP_BASE_HREF, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router'
@@ -7,6 +8,7 @@ import {NAVIGATION_PROVIDERS} from './navigation/navigation.module'
 import {CONTACT_PROVIDERS} from './contact/contact.module'
 
 bootstrap(AppComponent, [
+    STORE_PROVIDERS,
     ROUTER_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide(APP_BASE_HREF, {useValue: '/'}),
