@@ -6,6 +6,7 @@ import {APP_BASE_HREF, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy}
 import {HTTP_PROVIDERS} from 'angular2/http'
 import {NAVIGATION_PROVIDERS} from './navigation/navigation.module'
 import {CONTACT_PROVIDERS} from './contact/contact.module'
+import {NOTIFICATION_PROVIDERS} from './notification/notification.module'
 
 bootstrap(AppComponent, [
     STORE_PROVIDERS,
@@ -14,5 +15,6 @@ bootstrap(AppComponent, [
     provide(APP_BASE_HREF, {useValue: '/'}),
     HTTP_PROVIDERS,
     NAVIGATION_PROVIDERS,
-    CONTACT_PROVIDERS
+    CONTACT_PROVIDERS,
+    NOTIFICATION_PROVIDERS
 ]);

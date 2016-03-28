@@ -1,4 +1,4 @@
-import {OpaqueToken} from 'angular2/router'
+import {OpaqueToken} from 'angular2/core'
 import {Page} from './page.interface'
 import {Observable} from 'rxjs/Observable'
 import {Sorts} from './sort.interface'
