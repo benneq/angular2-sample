@@ -1,7 +1,23 @@
-import {provideStore} from '@ngrx/store';
+import {OpaqueToken, provide} from 'angular2/core';
+import {provideStore, REDUCER, combineReducers} from '@ngrx/store';
+import {StoreProvider} from './store.provider';
+
+
+
+export const STORE_PROVIDER_TOKEN = new OpaqueToken('StoreProvider');
 
 
 
 export const STORE_PROVIDERS: any[] = [
-    provideStore({}, {}),
+    provideStore({}),
+    provide(REDUCER, {
+        deps: [STORE_PROVIDER_TOKEN],
+        useFactory(reducers:StoreProvider[]) {
+            var obj = reducers.reduce((o, v, i) => {
+                o[v.name] = v.reducer;
+                return o;
+            }, {});
+           return combineReducers({});
+        }
+    })
 ]
