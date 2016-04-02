@@ -16,5 +16,5 @@ const NOTIFICATION_ROOT_ROUTE:RouteDefinition = {
 
 export const NOTIFICATION_PROVIDERS: any[] = [
     provide(ROOT_ROUTE_TOKEN, { useValue: NOTIFICATION_ROOT_ROUTE, multi: true }),
-    provide(STORE_PROVIDER_TOKEN, { useValue: NotificationStoreProvider, multi: true })
+    provide(STORE_PROVIDER_TOKEN, { useClass: NotificationStoreProvider, multi: true })
 ]

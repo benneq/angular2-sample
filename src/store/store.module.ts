@@ -13,11 +13,11 @@ export const STORE_PROVIDERS: any[] = [
     provide(REDUCER, {
         deps: [STORE_PROVIDER_TOKEN],
         useFactory(reducers:StoreProvider[]) {
-            var obj = reducers.reduce((o, v, i) => {
+            var obj = reducers.reduce((o, v) => {
                 o[v.name] = v.reducer;
                 return o;
             }, {});
-           return combineReducers({});
+            return combineReducers(obj);
         }
     })
 ]
