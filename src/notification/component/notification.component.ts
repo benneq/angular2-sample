@@ -3,7 +3,7 @@ import {List} from 'immutable';
 import {Store} from '@ngrx/store';
 import {Observable} from 'RxJs';
 import {Notification} from '../model/notification';
-import {NotificationStore} from '../store/notification.store.provider';
+import {NotificationStore, READ} from '../store/notification.store.provider';
 
 
 
@@ -11,7 +11,7 @@ import {NotificationStore} from '../store/notification.store.provider';
     template: `
         NOTIFICATION COMPONENT
         <ul>
-            <li *ngFor="#notification of notifications | async">{{notification.content}}, {{notification.createdAt}}</li>
+            <li *ngFor="#notification of notifications | async ; #i = index">{{notification.content}} <button (click)="read(i, !notification.read)">{{notification.read ? 'Unread' : 'Read'}}</button></li>
         </ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,8 +19,12 @@ import {NotificationStore} from '../store/notification.store.provider';
 export class NotificationComponent {
     notifications: Observable<List<Notification>>;
     
-    constructor(store:Store<NotificationStore>) {
+    constructor(private store:Store<NotificationStore>) {
         this.notifications = store.select(store => store.notifications);
+    }
+    
+    read(i, value):void {
+        this.store.dispatch({type:READ, payload:{index: i, read:value}});
     }
     
 }
