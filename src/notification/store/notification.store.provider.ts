@@ -7,6 +7,7 @@ import {Notification} from '../model/notification';
 
 export const ADD = 'ADD';
 export const REMOVE = 'REMOVE';
+export const READ = 'READ';
 
 export interface NotificationStore {
     notifications:List<Notification>;
@@ -22,6 +23,9 @@ export class NotificationStoreProvider implements StoreProvider {
                 
             case REMOVE:
                 return state.remove(action.payload);    
+            
+            case READ:
+                return state.update(action.payload.index, val => <Notification>val.set('read', action.payload.read));
             
             default:
                 return state;
