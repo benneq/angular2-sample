@@ -26,10 +26,15 @@
           '@ngrx/store' : {
             main: 'dist/index.js',
             defaultExtension: 'js'
+          },
+          'immutable': {
+            main: 'dist/immutable.js',
+            defaultExtension: 'js'
           }
         },
         map: {
-          '@ngrx/store': 'node_modules/@ngrx/store'
+          '@ngrx/store': 'node_modules/@ngrx/store',
+          'immutable': 'node_modules/immutable'
         }
       });
       System.import('dist/boot').then(null, console.error.bind(console));

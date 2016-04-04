@@ -2,7 +2,6 @@ import {Component} from 'angular2/core'
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 import {Store} from '@ngrx/store';
 import {Observable} from 'RxJs';
-import {ADD} from '../store/notification.store.provider';
 
 
 
