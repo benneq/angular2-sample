@@ -3,7 +3,7 @@ import {List} from 'immutable';
 import {Store} from '@ngrx/store';
 import {Observable} from 'RxJs';
 import {Notification} from '../model/notification';
-import {NotificationStore, READ} from '../store/notification.store.provider';
+import {NotificationStore, ReadAction} from '../store/notification.store.provider';
 
 
 
@@ -24,7 +24,7 @@ export class NotificationComponent {
     }
     
     read(i, value):void {
-        this.store.dispatch({type:READ, payload:{index: i, read:value}});
+        this.store.dispatch(new ReadAction({index:i, read:value}));
     }
     
 }
