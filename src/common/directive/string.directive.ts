@@ -12,18 +12,28 @@ const PROVIDER = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, {useExisting: forwar
     bindings: [PROVIDER]
 })
 export class StringFilterDirective extends DefaultValueAccessor {
+    val:string;
 
     constructor(renderer: Renderer, private el: ElementRef) {
         super(renderer, el);
     }
     
     ngOnInit() {
-        Observable.fromEvent(this.el.nativeElement, 'blur')
-            .map((val:any) => val.target.value)
-            .map(this.filter)
-            .subscribe(val => {
-                this.el.nativeElement.value = val;
-                this.onChange(val);
+        this.val = this.el.nativeElement.value;
+        
+        Observable.fromEvent(this.el.nativeElement, 'input')
+            .map((val:Event) => val.target)
+            .subscribe((val:HTMLInputElement) => {
+                this.val = this.filter(val.value);
+                
+                if(this.val != val.value) {
+                    let selectionStart = val.selectionStart;
+   
+                    val.value = this.val;
+                
+                    val.selectionStart = selectionStart;
+                    val.selectionEnd = selectionStart;
+                }
             });
     }
     
