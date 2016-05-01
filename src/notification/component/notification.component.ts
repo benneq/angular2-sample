@@ -11,7 +11,7 @@ import {NotificationStore, ReadAction} from '../store/notification.store.provide
     template: `
         NOTIFICATION COMPONENT
         <ul>
-            <li *ngFor="#notification of notifications | async ; #i = index">{{notification.content}} <button (click)="read(i, !notification.read)">{{notification.read ? 'Unread' : 'Read'}}</button></li>
+            <li *ngFor="let notification of notifications | async ; let i = index">{{notification.content}} <button (click)="read(i, !notification.read)">{{notification.read ? 'Unread' : 'Read'}}</button></li>
         </ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush

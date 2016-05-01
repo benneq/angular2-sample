@@ -18,7 +18,7 @@ import {EntitySearchComponent} from '../../common/component/entitysearch.compone
                     <span [hidden]="company.valid">Required</span>
                 </div>
             </div>
-            <div *ngFor="#address of model.addresses; #i = index">
+            <div *ngFor="let address of model.addresses; let i = index">
                 <addressForm [model]="address"></addressForm>
                 <button (click)="model.removeAddress(i)">Remove Address</button>
             </div>

@@ -13,7 +13,7 @@ import {Observable, Subject} from 'rxjs/Rx'
         <ul *ngIf="!hidden">
             <template [ngIf]="!pending && (!hideOnInvalid || term.valid)">
                 <li *ngIf="!results">No Results Found</li>
-                <li *ngFor="#res of results" (click)="select(res)">{{format(res)}}</li>
+                <li *ngFor="let res of results" (click)="select(res)">{{format(res)}}</li>
             </template>
         </ul>
     `,

@@ -13,7 +13,7 @@ import {AddressView} from './address.view'
             <div *ngIf="model.company">
                 Company: {{model.company.name}}
             </div>
-            <div *ngFor="#address of model.addresses">
+            <div *ngFor="let address of model.addresses">
                 <addressView [model]="address"></addressView>
             </div>
         </div>

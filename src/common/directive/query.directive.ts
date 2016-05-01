@@ -31,7 +31,7 @@ export class QueryDirective extends DefaultValueAccessor {
             o = o.map((val: string) => val.trim());
         }
         
-        o.subscribe(this.onChange);
+        o.subscribe(val => this.onChange(val));
     }
 
 }

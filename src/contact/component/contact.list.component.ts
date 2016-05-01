@@ -1,10 +1,12 @@
-import {Component} from 'angular2/core'
-import {Control, ControlGroup, FormBuilder} from 'angular2/common'
-import {RouteParams, Router, ROUTER_DIRECTIVES, ComponentInstruction} from 'angular2/router'
-import {ContactService} from '../contact.service'
-import {Contact} from '../model/contact'
-import {PageComponent} from '../../common/component/page.component'
-import {ContactFilterForm} from '../form/contactfilter.form'
+import {Component} from 'angular2/core';
+import {Control, ControlGroup, FormBuilder} from 'angular2/common';
+import {RouteParams, Router, ROUTER_DIRECTIVES, ComponentInstruction} from 'angular2/router';
+import {ContactService} from '../contact.service';
+import {Contact} from '../model/contact';
+import {PageComponent} from '../../common/component/page.component';
+import {ContactFilterForm} from '../form/contactfilter.form';
+
+
 
 @Component({
     template: `
@@ -17,7 +19,7 @@ import {ContactFilterForm} from '../form/contactfilter.form'
             PENDING
         </div>
         <div *ngIf="model && !pending">
-            <div *ngFor="#item of model.content">
+            <div *ngFor="let item of model.content">
                 <a [routerLink]="['Show', {id: item.id}]">{{item.name}}</a>
             </div>
         </div>

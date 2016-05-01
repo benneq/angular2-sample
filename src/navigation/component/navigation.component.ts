@@ -8,7 +8,7 @@ import {NavigationService} from '../navigation.service'
         NAV
         <nav>
             <ul>
-                <li *ngFor="#route of routes"><a [routerLink]="route.path">{{route.name}}</a></li>
+                <li *ngFor="let route of routes"><a [routerLink]="route.path">{{route.name}}</a></li>
             </ul>
         </nav>
     `,
