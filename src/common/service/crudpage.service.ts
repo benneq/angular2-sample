@@ -1,8 +1,10 @@
-import {Http, URLSearchParams} from 'angular2/http'
-import {Observable} from 'rxjs/Observable'
-import {Page} from '../interface/page.interface'
-import {Direction,Sorts} from '../interface/sort.interface'
-import 'rxjs/Rx'
+import {Http, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Page} from '../interface/page.interface';
+import {Direction,Sorts} from '../interface/sort.interface';
+import 'rxjs/Rx';
+
+
 
 export abstract class CrudPageService<T> {
     

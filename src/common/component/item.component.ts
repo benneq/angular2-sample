@@ -1,5 +1,7 @@
-import {RouteParams} from 'angular2/router'
-import {HasItem} from '../interface/hasitem.interface'
+import {RouteParams} from '@angular/router-deprecated';
+import {HasItem} from '../interface/hasitem.interface';
+
+
 
 export abstract class ItemComponent<T, S extends HasItem<T>> {
     id:string;

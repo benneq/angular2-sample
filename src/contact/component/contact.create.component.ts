@@ -1,8 +1,10 @@
-import {Component} from 'angular2/core'
-import {Router} from 'angular2/router'
-import {ContactService} from '../contact.service'
-import {Contact} from '../model/contact'
-import {ContactForm} from '../form/contact.form'
+import {Component} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
+import {ContactService} from '../contact.service';
+import {Contact} from '../model/contact';
+import {ContactForm} from '../form/contact.form';
+
+
 
 @Component({
     template: `

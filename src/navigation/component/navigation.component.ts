@@ -1,6 +1,8 @@
-import {Component} from 'angular2/core'
-import {ROUTER_DIRECTIVES} from 'angular2/router'
-import {NavigationService} from '../navigation.service'
+import {Component} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {NavigationService} from '../navigation.service';
+
+
 
 @Component({
     selector: 'navigation',

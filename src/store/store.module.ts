@@ -1,4 +1,4 @@
-import {OpaqueToken, provide} from 'angular2/core';
+import {OpaqueToken, provide} from '@angular/core';
 import {provideStore, REDUCER, combineReducers} from '@ngrx/store';
 import {StoreProvider} from './store.provider';
 

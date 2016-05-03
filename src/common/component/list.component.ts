@@ -1,7 +1,9 @@
-import {Router, RouteParams, CanReuse, OnReuse, ComponentInstruction} from 'angular2/router'
-import {HasList} from '../interface/haslist.interface'
-import {Page} from '../interface/page.interface'
-import {Sorts} from '../interface/sort.interface'
+import {Router, RouteParams, CanReuse, OnReuse, ComponentInstruction} from '@angular/router-deprecated';
+import {HasList} from '../interface/haslist.interface';
+import {Page} from '../interface/page.interface';
+import {Sorts} from '../interface/sort.interface';
+
+
 
 export abstract class ListComponent<T, S extends HasList<T>> implements CanReuse, OnReuse {
     sort:Sorts;

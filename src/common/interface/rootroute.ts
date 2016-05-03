@@ -1,4 +1,5 @@
-import {OpaqueToken} from 'angular2/core'
-import {RouteDefinition} from 'angular2/router'
+import {OpaqueToken} from '@angular/core';
+
+
 
 export const ROOT_ROUTE_TOKEN = new OpaqueToken('RootRoute');

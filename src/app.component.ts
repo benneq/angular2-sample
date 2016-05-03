@@ -1,7 +1,9 @@
-import {Component, Inject} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, RouteDefinition} from 'angular2/router';
+import {Component, Inject} from '@angular/core';
+import {ROUTER_DIRECTIVES, Router, RouteDefinition} from '@angular/router-deprecated';
 import {NavigationComponent} from './navigation/component/navigation.component';
 import {ROOT_ROUTE_TOKEN} from './common/interface/rootroute';
+
+
 
 @Component({
     selector: 'app',

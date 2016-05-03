@@ -1,7 +1,9 @@
-import {Component, Optional, Input, Inject, Renderer, ElementRef} from 'angular2/core'
-import {DefaultValueAccessor, ControlGroup, NgControl, Control, Validators, FormBuilder} from 'angular2/common'
-import {QueryDirective} from '../../common/directive/query.directive'
-import {Observable, Subject} from 'rxjs/Rx'
+import {Component, Optional, Input, Inject, Renderer, ElementRef} from '@angular/core';
+import {DefaultValueAccessor, ControlGroup, NgControl, Control, Validators, FormBuilder} from '@angular/common';
+import {QueryDirective} from '../../common/directive/query.directive';
+import {Observable, Subject} from 'rxjs/Rx';
+
+
 
 @Component({
     selector: 'contactFilter',

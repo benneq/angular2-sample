@@ -1,4 +1,6 @@
-import {Arrays} from '../../common/util/arrays'
+import {Arrays} from '../../common/util/arrays';
+
+
 
 export class Contact {
     id:string = null;

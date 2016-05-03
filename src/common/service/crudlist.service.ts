@@ -1,7 +1,9 @@
-import {Http, URLSearchParams} from 'angular2/http'
-import {Observable} from 'rxjs/Observable'
-import 'rxjs/Rx'
-import {Sorts} from '../interface/sort.interface'
+import {Http, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
+import {Sorts} from '../interface/sort.interface';
+
+
 
 export abstract class CrudListService<T> {
     

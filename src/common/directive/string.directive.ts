@@ -1,11 +1,10 @@
-import {Directive, Renderer, ElementRef, forwardRef, Provider} from 'angular2/core'
-import {Observable} from 'rxjs/Rx'
-import {NG_VALUE_ACCESSOR, DefaultValueAccessor} from 'angular2/common'
-import {CONST_EXPR} from 'angular2/src/facade/lang'
+import {Directive, Renderer, ElementRef, forwardRef, Provider} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+import {NG_VALUE_ACCESSOR, DefaultValueAccessor} from '@angular/common';
 
 
 
-const PROVIDER = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => StringFilterDirective), multi: true}));
+const PROVIDER = new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => StringFilterDirective), multi: true});
 
 @Directive({
     selector: '[stringFilter]',

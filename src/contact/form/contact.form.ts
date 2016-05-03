@@ -1,8 +1,10 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core'
-import {FormBuilder, Validators, ControlGroup} from 'angular2/common'
-import {Contact} from '../model/contact'
-import {AddressForm} from './address.form'
-import {EntitySearchComponent} from '../../common/component/entitysearch.component'
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
+import {FormBuilder, Validators, ControlGroup} from '@angular/common';
+import {Contact} from '../model/contact';
+import {AddressForm} from './address.form';
+import {EntitySearchComponent} from '../../common/component/entitysearch.component';
+
+
 
 @Component({
     selector: 'contactForm',
@@ -14,8 +16,8 @@ import {EntitySearchComponent} from '../../common/component/entitysearch.compone
                     <span [hidden]="name.valid">Required</span>
                 </div>
                 <div>
-                    Company: <entitySearch ngControl="company" [(ngModel)]="model.company" #company="ngForm"></entitySearch>
-                    <span [hidden]="company.valid">Required</span>
+                    <!-- Company: <entitySearch ngControl="company" [(ngModel)]="model.company" #company="ngForm"></entitySearch> -->
+                    <!-- <span [hidden]="company.valid">Required</span> -->
                 </div>
             </div>
             <div *ngFor="let address of model.addresses; let i = index">

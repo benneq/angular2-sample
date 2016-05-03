@@ -6,35 +6,31 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 
     <script src="node_modules/es6-shim/es6-shim.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
 
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
 
     <script>
       System.config({
         packages: {        
-          dist: {
-            format: 'register',
-            defaultExtension: 'js'
-          },
-          '@ngrx/store' : {
-            main: 'index.js',
-            defaultExtension: 'js'
-          },
-          'immutable': {
-            main: 'dist/immutable.js',
-            defaultExtension: 'js'
-          }
+          'dist': { format: 'register', defaultExtension: 'js' },
+          '@angular/common': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/compiler': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/core': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/http': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/platform-browser': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/platform-browser-dynamic': { main: 'index.js', defaultExtension: 'js' },
+          '@angular/router-deprecated': { main: 'index.js', defaultExtension: 'js' },
+          '@ngrx/store' : { main: 'index.js', defaultExtension: 'js' },
+          'immutable': { main: 'dist/immutable.js', defaultExtension: 'js' },
+          'rxjs': { defaultExtension: 'js' }
         },
         map: {
+          '@angular': 'node_modules/@angular',
           '@ngrx/store': 'node_modules/@ngrx/store',
-          'immutable': 'node_modules/immutable'
+          'immutable': 'node_modules/immutable',
+          'rxjs': 'node_modules/rxjs'
         }
       });
       System.import('dist/boot').then(null, console.error.bind(console));

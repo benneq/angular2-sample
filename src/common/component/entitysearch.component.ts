@@ -1,9 +1,11 @@
-import {Component, Optional, Input, Inject, Renderer, ElementRef} from 'angular2/core'
-import {DefaultValueAccessor, NgControl, Control, Validators} from 'angular2/common'
-import {HasPage, HAS_PAGE_TOKEN} from '../interface/haspage.interface'
-import {Page} from '../interface/page.interface'
-import {QueryDirective} from '../directive/query.directive'
-import {Observable, Subject} from 'rxjs/Rx'
+import {Component, Optional, Input, Inject, Renderer, ElementRef} from '@angular/core';
+import {DefaultValueAccessor, NgControl, Control, Validators} from '@angular/common';
+import {HasPage, HAS_PAGE_TOKEN} from '../interface/haspage.interface';
+import {Page} from '../interface/page.interface';
+import {QueryDirective} from '../directive/query.directive';
+import {Observable, Subject} from 'rxjs/Rx';
+
+
 
 @Component({
     selector: 'entitySearch',
@@ -27,7 +29,7 @@ export class EntitySearchComponent extends DefaultValueAccessor {
     @Input() hideOnInvalid:boolean = true;
     @Input() disabled: boolean = false;
     
-    subject:Subject<string> = new Subject();
+    subject:Subject<{}> = new Subject();
     term:Control = new Control();
     
     pending:boolean = false;

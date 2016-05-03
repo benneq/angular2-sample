@@ -1,7 +1,9 @@
-import {Router, RouteParams, CanReuse, OnReuse, ComponentInstruction} from 'angular2/router'
-import {HasPage} from '../interface/haspage.interface'
-import {Page} from '../interface/page.interface'
-import {Sorts} from '../interface/sort.interface'
+import {Router, RouteParams, CanReuse, OnReuse, ComponentInstruction} from '@angular/router-deprecated';
+import {HasPage} from '../interface/haspage.interface';
+import {Page} from '../interface/page.interface';
+import {Sorts} from '../interface/sort.interface';
+
+
 
 export abstract class PageComponent<T, S extends HasPage<T>> implements CanReuse, OnReuse {
     page:number;

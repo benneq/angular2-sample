@@ -1,6 +1,6 @@
-import {Component} from 'angular2/core';
-import {Control, ControlGroup, FormBuilder} from 'angular2/common';
-import {RouteParams, Router, ROUTER_DIRECTIVES, ComponentInstruction} from 'angular2/router';
+import {Component} from '@angular/core';
+import {Control, ControlGroup, FormBuilder} from '@angular/common';
+import {RouteParams, Router, ROUTER_DIRECTIVES, ComponentInstruction} from '@angular/router-deprecated';
 import {ContactService} from '../contact.service';
 import {Contact} from '../model/contact';
 import {PageComponent} from '../../common/component/page.component';
@@ -11,7 +11,7 @@ import {ContactFilterForm} from '../form/contactfilter.form';
 @Component({
     template: `
         CONTACT LIST COMPONENT
-        <contactFilter [ngFormControl]="filterForm"></contactFilter>
+        <!-- <contactFilter [ngFormControl]="filterForm"></contactFilter> -->
         <div>
             <a [routerLink]="['Create']">New</a>
         </div>

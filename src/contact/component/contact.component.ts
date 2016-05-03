@@ -1,9 +1,10 @@
-import {Component} from 'angular2/core'
-import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
-import {ContactCreateComponent} from './contact.create.component'
-import {ContactListComponent} from './contact.list.component'
-import {ContactShowComponent} from './contact.show.component'
-import {ContactEditComponent} from './contact.edit.component'
+import {Component} from '@angular/core';
+import {ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
+import {ContactCreateComponent} from './contact.create.component';
+import {ContactListComponent} from './contact.list.component';
+import {ContactShowComponent} from './contact.show.component';
+import {ContactEditComponent} from './contact.edit.component';
+
 
 
 @Component({

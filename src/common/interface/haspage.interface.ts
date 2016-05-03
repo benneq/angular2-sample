@@ -1,7 +1,9 @@
-import {OpaqueToken} from 'angular2/core'
-import {Page} from './page.interface'
-import {Observable} from 'rxjs/Observable'
-import {Sorts} from './sort.interface'
+import {OpaqueToken} from '@angular/core';
+import {Page} from './page.interface';
+import {Observable} from 'rxjs/Observable';
+import {Sorts} from './sort.interface';
+
+
 
 export const HAS_PAGE_TOKEN = new OpaqueToken('HasPage');
 
