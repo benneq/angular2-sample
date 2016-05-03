@@ -29,7 +29,7 @@ export interface NotificationStore {
 export class NotificationStoreProvider implements StoreProvider {
     name = "notifications";
     
-    reducer:Reducer<List<Notification>> = (state:Immutable.List<Notification>=List<Notification>(), action:Action) => {
+    reducer:Reducer<List<Notification>> = (state:List<Notification>=List<Notification>(), action:Action) => {
         if(action instanceof AddAction) {
             return state.push(action.payload);
         }
